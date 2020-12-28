@@ -13,6 +13,10 @@
 
 Renamed version of popular [**Pykeyboard**](https://github.com/pystorage/pykeyboard) keyboard framework
 
+# What's new?
+
+- Added a new method to <b>InlineKeyboard</b> for working with <ins>pagination</ins>. The <b>InlinePaginationKeyboard</b> class will be removed in a future version.
+
 # Installation
 
 ```shell
@@ -27,11 +31,11 @@ pip install pyroboard
 from pyroboard import InlineKeyboard
 ```
 
-### Parameters:
+##### Parameters:
 
 - row_width (integer, default 3)
 
-#### Inline Keyboard add buttons
+### Inline Keyboard add buttons
 
 #### Code
 
@@ -82,13 +86,105 @@ keyboard.row(
 
 <p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/row_inline_button.png" alt="row_inline_button"></p>
 
+### Pagination inline keyboard
+
+```python
+from pyroboard import InlineKeyboard
+```
+
+#### Parameters:
+
+- count_pages (integer)
+- current_page (integer)
+- callback_pattern (string) - use of the `{number}` pattern is <ins>required</ins>
+
+#### Pagination 3 pages
+
+#### Code
+
+```python
+from pyroboard import InlineKeyboard
+
+keyboard = InlineKeyboard()
+keyboard.paginate(3, 3, 'pagination_keyboard#{number}')
+```
+
+#### Result
+
+<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_3.png" alt="pagination_keyboard_3"></p>
+
+#### Pagination 5 pages
+
+#### Code
+
+```python
+from pyroboard import InlineKeyboard
+
+keyboard = InlineKeyboard()
+keyboard.paginate(5, 3, 'pagination_keyboard#{number}')
+```
+
+#### Result
+
+<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_5.png" alt="pagination_keyboard_5"></p>
+
+#### Pagination 9 pages
+
+#### Code
+
+```python
+from pyroboard import InlineKeyboard
+
+keyboard = InlineKeyboard()
+keyboard.paginate(9, 5, 'pagination_keyboard#{number}')
+```
+
+#### Result
+
+<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_9.png" alt="pagination_keyboard_9"></p>
+
+#### Pagination 100 pages
+
+#### Code
+
+```python
+from pyroboard import InlineKeyboard
+
+keyboard = InlineKeyboard()
+keyboard.paginate(100, 100, 'pagination_keyboard#{number}')
+```
+
+#### Result
+
+<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_100.png" alt="pagination_keyboard_100"></p>
+
+#### Pagination 150 pages and buttons
+
+#### Code
+
+```python
+from pyroboard import InlineKeyboard
+from pyrogram.types import InlineKeyboardButton
+
+keyboard = InlineKeyboard()
+keyboard.paginate(150, 123, 'pagination_keyboard#{number}')
+keyboard.row(
+    InlineKeyboardButton('Back', 'pagination_keyboard#back'),
+    InlineKeyboardButton('Close', 'pagination_keyboard#close')
+)
+```
+
+#### Result
+
+<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_150.png" alt="pagination_keyboard_150"></p>
+
 ## Reply Keyboard
 
 ```python
 from pyroboard import ReplyKeyboard
 ```
 
-### Parameters:
+#### Parameters:
 
 - resize_keyboard (bool, optional)
 - one_time_keyboard (bool, optional)
@@ -140,95 +236,3 @@ keyboard.row(KeyboardButton('5', 'reply_keyboard#5'))
 #### Result
 
 <p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/row_reply_button.png" alt="row_reply_button"></p>
-
-## Pagination inline keyboard
-
-```python
-from pyroboard import InlinePaginationKeyboard
-```
-
-### Parameters:
-
-- count_pages (integer)
-- current_page (integer)
-- callback_pattern (string) - use of the `{number}` pattern is <ins>required</ins>
-
-### Pagination 3 pages
-
-#### Code
-
-```python
-from pyroboard import InlinePaginationKeyboard
-
-
-keyboard = InlinePaginationKeyboard(3, 3, 'pagination_keyboard#{number}')
-```
-
-#### Result
-
-<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_3.png" alt="pagination_keyboard_3"></p>
-
-### Pagination 5 pages
-
-#### Code
-
-```python
-from pyroboard import InlinePaginationKeyboard
-
-
-keyboard = InlinePaginationKeyboard(5, 3, 'pagination_keyboard#{number}')
-```
-
-#### Result
-
-<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_5.png" alt="pagination_keyboard_5"></p>
-
-### Pagination 9 pages
-
-#### Code
-
-```python
-from pyroboard import InlinePaginationKeyboard
-
-
-keyboard = InlinePaginationKeyboard(9, 5, 'pagination_keyboard#{number}')
-```
-
-#### Result
-
-<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_9.png" alt="pagination_keyboard_9"></p>
-
-### Pagination 100 pages
-
-#### Code
-
-```python
-from pyroboard import InlinePaginationKeyboard
-
-
-keyboard = InlinePaginationKeyboard(100, 100, 'pagination_keyboard#{number}')
-```
-
-#### Result
-
-<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_100.png" alt="pagination_keyboard_100"></p>
-
-### Pagination 150 pages and buttons
-
-#### Code
-
-```python
-from pyroboard import InlinePaginationKeyboard
-from pyrogram.types import InlineKeyboardButton
-
-
-keyboard = InlinePaginationKeyboard(150, 123, 'pagination_keyboard#{number}')
-keyboard.row(
-    InlineKeyboardButton('Back', 'pagination_keyboard#back'),
-    InlineKeyboardButton('Close', 'pagination_keyboard#close')
-)
-```
-
-#### Result
-
-<p><img src="https://raw.githubusercontent.com/pystorage/pyroboard/master/static/images/pagination_keyboard_150.png" alt="pagination_keyboard_150"></p>
